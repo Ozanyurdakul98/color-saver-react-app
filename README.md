@@ -1,70 +1,106 @@
-# Getting Started with Create React App
+# Color Saver App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Problem
 
-## Available Scripts
+As a developer we often have favorite color schemes we want to use in our small projects. This color saver app helps us to reuse these colors easily and organize them in custom color palettes.
 
-In the project directory, you can run:
+## Userstory #0
 
-### `npm start`
+### Description
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**As a** user  
+**I want to** easily access saved colorCodes from colorCards  
+**in order to** use them in my other projects.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Different Colorcodes are saved in an array. They are visualised as cards.
+When you click on one of the cards the hexcode is saved in the clipboard.
 
-### `npm test`
+![userstory 0](./assets/color-saver-app-userstory-0.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Hints
 
-### `npm run build`
+- create a `ColorCard` component
+- create an array of color objects, e.g.
+  ```
+  {
+    id: '234',
+    colorCode: '#ccc'
+  }
+  ```
+- map over this array to create a `ColorCard` for each
+- use props to hand over the colorCode
+- copying a string to the clipboard (hint: `navigator.clipboard.writeText(text)`)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Example Solution
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+[codsandbox](https://codesandbox.io/s/color-saver-assignment-userstory-0-xlwdq8?file=/src/components/ColorBox.js)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Userstory #1
 
-### `npm run eject`
+### Description
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**As a** user  
+**I want to** add, edit and delete colorCodes from my color list  
+**in order to** interact with the saved content.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The user can add hexcodes to the array by using an interactive form. The
+form has a color and a text input, both for selecting a colorcode.
+On submit, a new card is created.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The hexcode of a color card can be edited by clicking on the code display.
+A Card can be deleted by pressing the x button on the card.
+The copy functionality from userstory #0 must work as well, except the code is not copied if one of the two events above are activated.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![userstory 1](./assets/color-saver-app-userstory-1.png)
 
-## Learn More
+### Hints
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Create a `Form` component
+- Handle a complex state on App component level for creating, updating and deleting elements in the color Array
+- Use a local state in the `Form` for handling the value of the new color code.
+- Pass event handlers from the `App` down to the cards
+- Use `event.stopPropagation()` when a button on the card is clicked, such that the copy event is not triggered
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Example Solution
 
-### Code Splitting
+[codsandbox](https://codesandbox.io/s/color-saver-assignment-userstory-1-tf40tu)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Userstory #2
 
-### Analyzing the Bundle Size
+### Description
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**As a** user  
+**I want to** access the colors across browser sessions  
+**in order to** reuse the colors for a longer period of time.
 
-### Making a Progressive Web App
+The Color codes are saved in localstorage, so colors can
+be saved across
+sessions.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Each color displays a name for the color fetched from the color api:
+`https://www.thecolorapi.com/id?hex=<hexcode here>`
 
-### Advanced Configuration
+![userstory 1](./assets/color-saver-app-userstory-2.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Hints
 
-### Deployment
+- controlled inputs
+- Create a localstorage with useEffect for the color information
+- fetching the name of a color from the - [color API](https://www.thecolorapi.com/) using useEffect as well.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Example Solution
 
-### `npm run build` fails to minify
+[codesandbox](https://codesandbox.io/s/color-saver-assignment-userstory-2-4ysp71)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Super Advanced: Optional Userstory #3
+
+### Description
+
+**As a** user  
+**I want to** group my colors into color palettes  
+**in order to** organise my color schemes.
+
+Colors are grouped in Color Palettes. Each palette has a name and this can be
+edited when clicked on the title.
+
+![userstory 1](./assets/color-saver-app-userstory-3.png)
