@@ -1,11 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ColorBox from "./components/ColorBox";
 import ColorForm from "./components/ColorForm";
 import { nanoid } from "nanoid";
 import "./App.css";
 
+const COLORS = [
+  {
+    id: "0",
+    colorCode: "#ff0000",
+  },
+  {
+    id: "1",
+    colorCode: "#00ff00",
+  },
+  {
+    id: "2",
+    colorCode: "#0000ff",
+  },
+];
+
 export default function App() {
   const [colorList, setColorList] = useState([]);
+
+  useEffect(() => {
+    const savedList =
+      JSON.parse(window.localStorage.getItem("colorList")) || COLORS;
+    setColorList(savedList);
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("colorList", JSON.stringify(colorList));
+  }, [colorList]);
+
   function handleAddColor(newColor) {
     setColorList((prevList) => [
       {
@@ -40,9 +66,9 @@ export default function App() {
         {colorList.map((color) => (
           <ColorBox
             key={color.id}
-            color={color}
+            color={color.colorCode}
             onDelete={() => handleDeleteColor(color.id)}
-            onUpdate={handleUpdateColor}
+            onUpdate={(newColor) => handleUpdateColor(color.id, newColor)}
           />
         ))}
       </ul>

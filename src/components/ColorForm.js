@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./ColorForm.css";
 
 export default function ColorForm({ onSubmit }) {
-  const [colorCode, setColorCode] = useState("#cccccc");
+  const [colorCode, setColorCode] = useState("#CCCCCC");
   return (
     <form
       action=""
@@ -17,14 +17,14 @@ export default function ColorForm({ onSubmit }) {
         type="color"
         value={colorCode}
         onChange={(event) => {
-          setColorCode(event.target.value);
+          setColorCode(event.target.value.toUpperCase());
         }}
       />
       <input
         type="text"
         value={colorCode}
         onChange={(event) => {
-          setColorCode(event.target.value);
+          setColorCode(event.target.value.toUpperCase());
         }}
       />
       <button>Create</button>
