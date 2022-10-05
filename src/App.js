@@ -1,6 +1,6 @@
 import ColorBox from "./components/ColorBox";
 import { nanoid } from "nanoid";
-import "./styles.css";
+import "./App.css";
 
 export default function App() {
   const colorList = [
